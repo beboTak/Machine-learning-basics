@@ -1,5 +1,6 @@
 from sklearn.model_selection import cross_val_score,KFold,train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso,Ridge
 import numpy as np
 import pandas as pd
 
@@ -22,11 +23,20 @@ print(np.mean(cv_results), np.std(cv_results))
 print(np.quantile(cv_results, [0.025, 0.975])) 
 
 
-from sklearn.linear_model import Ridge 
 scores = [] 
 for alpha in [0.1, 1.0, 10.0, 100.0, 1000.0]: 
   ridge = Ridge(alpha=alpha) 
   ridge.fit(X_train, y_train) 
   y_pred = ridge.predict(X_test) 
   scores.append(ridge.score(X_test, y_test)) 
+print(scores) 
+
+
+
+scores = [] 
+for alpha in [0.01, 1.0, 10.0, 20.0, 50.0]: 
+ lasso = Lasso(alpha=alpha) 
+ lasso.fit(X_train, y_train) 
+ lasso_pred = lasso.predict(X_test) 
+ scores.append(lasso.score(X_test, y_test)) 
 print(scores) 
