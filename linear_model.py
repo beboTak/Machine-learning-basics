@@ -1,13 +1,19 @@
-# Import LinearRegression
-from sklearn.linear_model import LinearRegression
 
-# Create the model
+from sklearn.linear_model import LinearRegression
+import pandas as pd
+diabetes_df = pd.read_csv("diabetes_clean.csv") 
+print(diabetes_df.head()) 
+
+
+X = diabetes_df.drop("glucose", axis=1).values 
+y = diabetes_df["glucose"].values  
+
 reg = LinearRegression()
 
-# Fit the model to the data
+
 reg.fit(X,y)
 
-# Make predictions
+
 predictions = reg.predict(X)
 
 print(predictions[:5])
