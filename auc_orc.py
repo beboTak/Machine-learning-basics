@@ -1,5 +1,8 @@
+
+from sklearn.metrics import roc_auc_score,confusion_matrix,classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression 
+
 from sklearn.metrics import roc_curve
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -17,7 +20,7 @@ logreg.fit(X_train, y_train)
 y_pred = logreg.predict(X_test) 
 
 y_pred_probs = logreg.predict_proba(X_test)[:, 1] 
-print(y_pred_probs[0]) 
+print(y_pred_probs) 
 
 fpr, tpr, thresholds = roc_curve(y_test, y_pred_probs) 
 plt.plot([0, 1], [0, 1], 'k--') 
@@ -26,3 +29,14 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate') 
 plt.title('Logistic Regression ROC Curve') 
 plt.show() 
+
+
+
+
+print(roc_auc_score(y_test, y_pred_probs))
+
+
+print(confusion_matrix(y_test, y_pred))
+
+
+print(classification_report(y_test, y_pred))
